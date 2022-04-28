@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "walkingfriend"
-include ':app'
+include ':app', ':lib_interpreter'

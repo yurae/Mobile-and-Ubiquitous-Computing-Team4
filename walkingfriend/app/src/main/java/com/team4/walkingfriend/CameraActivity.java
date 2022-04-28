@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
@@ -250,6 +249,12 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
         }
 
         getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    }
+
+    protected void readyForNextImage() {
+        if (postInferenceCallback != null) {
+            postInferenceCallback.run();
+        }
     }
 
     protected int getScreenOrientation() {
