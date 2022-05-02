@@ -108,10 +108,11 @@ public class RouteManager {
                 break;
             case "user":
                 polyline.setStartCap(new RoundCap());
-                polyline.setEndCap(new ButtCap());
+                polyline.setEndCap(new RoundCap());
                 polyline.setWidth(ROUTE_WIDTH/2);
                 polyline.setColor(ROUTE_COLOR[linenum]);
                 polyline.setJointType(JointType.ROUND);
+                polyline.setZIndex(1f);
                 break;
         }
 
