@@ -175,7 +175,8 @@ public class MapsActivity extends FragmentActivity implements
         // Add polylines to the map.
         RouteManager.addRoutes(mMap);
         // Set listeners for click events.
-        googleMap.setOnPolylineClickListener(this);
+        mMap.setOnPolylineClickListener(this);
+        mMap.setMyLocationEnabled(true);
     }
 
 
@@ -207,7 +208,6 @@ public class MapsActivity extends FragmentActivity implements
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                 mLocationCallback, Looper.myLooper());
         if(mMap != null) {
-            mMap.setMyLocationEnabled(true);
             if (mLastLocation != null) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(mLastLocation.getLatitude(),

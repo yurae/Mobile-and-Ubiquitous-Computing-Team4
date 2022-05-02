@@ -27,7 +27,7 @@ public class RouteManager {
     private static final String TAG = "Route Manager";
 
 
-    private static final int[] ROUTE_COLOR = {0x77c1cdc3, 0x77ffbe8c, 0x7756b390};
+    private static final int[] ROUTE_COLOR = {0xff17174a, 0x77c1cdc3, 0x77ffbe8c, 0x7756b390};
     private static final float ROUTE_WIDTH = 15;
     private static final float ROUTE_HIGHLIGHT_WIDTH = 30;
 
@@ -109,7 +109,7 @@ public class RouteManager {
             case "user":
                 polyline.setStartCap(new RoundCap());
                 polyline.setEndCap(new ButtCap());
-                polyline.setWidth(ROUTE_WIDTH);
+                polyline.setWidth(ROUTE_WIDTH/2);
                 polyline.setColor(ROUTE_COLOR[linenum]);
                 polyline.setJointType(JointType.ROUND);
                 break;
