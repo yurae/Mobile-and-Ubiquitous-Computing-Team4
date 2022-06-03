@@ -1,11 +1,7 @@
-package com.example.walking_friend_map;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
+package com.team4.walkingfriend.maps;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
@@ -18,7 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -31,14 +31,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.walking_friend_map.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.SphericalUtil;
-
+import com.team4.walkingfriend.DetectorActivity;
+import com.team4.walkingfriend.R;
 
 import java.util.List;
 
@@ -49,7 +47,6 @@ public class MapsActivity extends FragmentActivity implements
         {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
 
     private boolean track_user_started = false;
     FusedLocationProviderClient mFusedLocationClient;
@@ -88,8 +85,7 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -113,8 +109,11 @@ public class MapsActivity extends FragmentActivity implements
                 view.setVisibility(View.INVISIBLE);
                 endButton.setVisibility(View.VISIBLE);
                 track_user_started = true;
-                RouteManager.onRouteSelected(view.getContext());
+                com.team4.walkingfriend.maps.RouteManager.onRouteSelected(view.getContext());
                 getUpdateLocation();
+
+                Intent intent = new Intent(view.getContext(), DetectorActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -173,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements
 
 
         // Add polylines to the map.
-        RouteManager.addRoutes(mMap);
+        com.team4.walkingfriend.maps.RouteManager.addRoutes(mMap);
         // Set listeners for click events.
         mMap.setOnPolylineClickListener(this);
         mMap.setMyLocationEnabled(true);
@@ -270,12 +269,12 @@ public class MapsActivity extends FragmentActivity implements
 
         LatLng LastLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
-        RouteManager.updateUserPath(mLastLocation);
+        com.team4.walkingfriend.maps.RouteManager.updateUserPath(mLastLocation);
     }
 
     @Override
     public void onPolylineClick(Polyline polyline) {
-        RouteManager.polylineClicked(this, polyline);
+        com.team4.walkingfriend.maps.RouteManager.polylineClicked(this, polyline);
 
         updateInfoText(polyline);
     }

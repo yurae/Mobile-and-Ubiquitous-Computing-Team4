@@ -1,4 +1,4 @@
-package com.example.walking_friend_map;
+package com.team4.walkingfriend.maps;
 
 import com.google.android.gms.maps.model.LatLng;
 

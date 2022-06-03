@@ -11,19 +11,27 @@
         android:background="@android:color/black"
         android:orientation="vertical">
 
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:layout_alignParentTop="true"
+            tools:context="com.team4.walkingfriend.maps.MapsActivity" />
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="600sp"
+            android:layout_alignParentBottom="true"
             tools:context="com.team4.walkingfriend.CameraActivity" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true">
-        </androidx.appcompat.widget.Toolbar>
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            android:layout_alignParentTop="true">-->
+<!--        </androidx.appcompat.widget.Toolbar>-->
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

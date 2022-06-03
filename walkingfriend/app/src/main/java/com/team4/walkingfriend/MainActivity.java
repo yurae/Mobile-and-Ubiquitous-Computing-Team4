@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.team4.walkingfriend.maps.MapsActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPlayClicked(View view){
-        Intent intent = new Intent(this, DetectorActivity.class);
+//        Intent intent = new Intent(this, DetectorActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 }
