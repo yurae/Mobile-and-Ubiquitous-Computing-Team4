@@ -1,37 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00000000">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
         android:orientation="vertical">
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/navigation"
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_background"
+        android:orientation="horizontal"
+        tools:ignore="NewApi"
+        >
+
+        <LinearLayout
+            android:id="@+id/info"
             android:layout_width="match_parent"
-            android:layout_height="100sp"
-            android:layout_alignParentTop="true"
-            tools:context="com.team4.walkingfriend.maps.MapsActivity" />
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical"
+            android:padding="10sp"
+            tools:ignore="UnknownId">
+
+            <TextView
+                android:id="@+id/info_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/info_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="#ffffff"
+
+                />
+
+            <TextView
+                android:id="@+id/info_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="#ffffff"
+
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/result_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/button_yellow"
+            android:text="FINISH"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            tools:ignore="UnknownId" />
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="600sp"
-            android:layout_alignParentBottom="true"
-            tools:context="com.team4.walkingfriend.CameraActivity" />
+            android:layout_height="450dp"
+            android:layout_below="@+id/info"
+            android:background="@color/black"
+            tools:context="com.team4.walkingfriend.CameraActivity"
+            tools:ignore="NewApi,NotSibling" />
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:layout_alignParentTop="true">-->
-<!--        </androidx.appcompat.widget.Toolbar>-->
     </RelativeLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>

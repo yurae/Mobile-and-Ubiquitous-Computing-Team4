@@ -101,30 +101,35 @@ public class MapsActivity extends FragmentActivity implements
 
         // Obtain button fragments
         startButton = findViewById(R.id.Startbutton);
-        endButton = findViewById(R.id.Endbutton);
+//        endButton = findViewById(R.id.Endbutton);
 
         startButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 view.setVisibility(View.INVISIBLE);
-                endButton.setVisibility(View.VISIBLE);
                 track_user_started = true;
                 com.team4.walkingfriend.maps.RouteManager.onRouteSelected(view.getContext());
                 getUpdateLocation();
 
                 Intent intent = new Intent(view.getContext(), DetectorActivity.class);
+                Bundle b = new Bundle();
+                b.putString("title", info_title.getText().toString()); //Your id
+                b.putString("distance", info_distance.getText().toString());
+                b.putString("level", info_level.getText().toString());
+                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }
         });
 
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                endButton.setVisibility(View.INVISIBLE);
-                track_user_started = false;
-                stopUpdateLocation();
-            }
-        });
+//        endButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                endButton.setVisibility(View.INVISIBLE);
+//                track_user_started = false;
+//                stopUpdateLocation();
+//                finishAffinity();
+//            }
+//        });
 
         // Obtain Text view for route info
         info = findViewById(R.id.info);

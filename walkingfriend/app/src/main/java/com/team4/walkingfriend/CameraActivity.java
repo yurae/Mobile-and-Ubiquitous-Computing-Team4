@@ -3,6 +3,7 @@ package com.team4.walkingfriend;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -18,12 +19,18 @@ import android.os.HandlerThread;
 import android.os.Trace;
 import android.util.Log;
 import android.view.Surface;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.team4.walkingfriend.result.ResultActivity;
 import com.team4.walkingfriend.utils.ImageUtils;
 
 import java.nio.ByteBuffer;
@@ -47,6 +54,13 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
     private Runnable postInferenceCallback;
     private Runnable imageConverter;
 
+    LinearLayout info;
+    TextView info_title;
+    TextView info_distance;
+    TextView info_level;
+    Button endButton;
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Log.d(LOGGER_TAG, "onCreate " + this);
@@ -58,6 +72,32 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Bundle b = getIntent().getExtras();
+        String title = b.getString("title");
+        String distance = b.getString("distance");
+        String level = b.getString("level");
+
+        // Obtain Text view for route info
+        info = findViewById(R.id.info);
+        info_title = findViewById(R.id.info_title);
+        info_distance = findViewById(R.id.info_distance);
+        info_level = findViewById(R.id.info_level);
+
+        info_title.setText(title);
+        info_distance.setText(distance);
+        info_level.setText(level);
+
+        endButton = findViewById(R.id.result_button);
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ResultActivity.class);
+                startActivity(intent);
+                finishAffinity();
+            }
+        });
+
 
         if (hasPermission()) {
             setFragment();

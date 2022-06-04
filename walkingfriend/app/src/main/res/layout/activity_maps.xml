@@ -3,93 +3,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     android:orientation="vertical"
-    android:padding="14.5sp"
     tools:context=".maps.MapsActivity">
 
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical"
+        android:padding="10sp"
+        tools:ignore="UnknownId">
 
-    <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/info_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="#ffffff"
+
+            />
+
+        <TextView
+            android:id="@+id/info_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="#ffffff"
+
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/Startbutton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/map"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/button_yellow"
+        android:text="START"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        tools:ignore="UnknownId" />
+
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="450dp"
+        android:layout_below="@+id/info"
         map:cameraZoom="14.8"
         map:mapType="normal"
         map:uiRotateGestures="false"
         map:uiScrollGestures="false"
         map:uiZoomControls="false"
 
-        map:uiZoomGestures="true"/>
-
-    <Button
-        android:id="@+id/Startbutton"
-        android:layout_width="341dp"
-        android:layout_height="48dp"
-        android:layout_alignBottom="@+id/map"
-        android:layout_centerInParent="true"
-
-        android:background="@drawable/rounded_button"
-        android:text="Start!"
-        android:textColor="#ffffff"
-        android:textSize="22dp"
-        tools:ignore="UnknownId" />
-
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/info"
-        android:layout_width="188dp"
-        android:layout_height="98dp"
-        android:layout_alignLeft="@+id/map"
-        android:layout_alignTop="@+id/map"
-        android:padding = "10sp"
-
-        android:background="@drawable/rounded_button"
-        tools:ignore="UnknownId"
-        >
-
-    <TextView
-        android:id="@+id/info_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:textColor="#ffffff"
-        android:textSize="15dp"
-        />
-
-    <TextView
-        android:id="@+id/info_distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:textColor="#ffffff"
-
-        />
-
-    <TextView
-        android:id="@+id/info_level"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:textColor="#ffffff"
-
-        />
-        
-        <Button
-            android:id="@+id/Endbutton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-
-            android:background="@drawable/rounded_button"
-            android:visibility="invisible"
-            android:text="End"
-            android:textColor="#ffffff"
-            />
-    </LinearLayout>
-
+        map:uiZoomGestures="true" />
 
 
 
