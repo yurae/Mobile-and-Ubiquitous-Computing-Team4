@@ -128,16 +128,23 @@ public class MultiBoxTracker {
             boxPaint.setColor(recognition.color);
 
             float cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f;
-            canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint);
+            // modify this line with character gif
+//            canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint);
 
-            final String labelString =
-                    !TextUtils.isEmpty(recognition.title)
-                            ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
-                            : String.format("%.2f", (100 * recognition.detectionConfidence));
+
+            //modify this line with coin text
+//            final String labelString =
+//                    !TextUtils.isEmpty(recognition.title)
+//                            ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
+//                            : String.format("%.2f", (100 * recognition.detectionConfidence));
+
             //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
             // labelString);
+
+            final String labelString = "100 Coins!";
             borderedText.drawText(
-                    canvas, trackedPos.left + cornerSize, trackedPos.top, labelString + "%", boxPaint);
+                    canvas, trackedPos.left + cornerSize, trackedPos.top, labelString, boxPaint);
+
         }
     }
 

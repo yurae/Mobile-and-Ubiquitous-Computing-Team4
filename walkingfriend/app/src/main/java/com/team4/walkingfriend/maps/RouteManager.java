@@ -25,7 +25,7 @@ public class RouteManager {
 
     private static List<Polyline> routes = new ArrayList<Polyline>();
     private static Polyline selected_route = null;
-    private static Polyline user_path = null;
+    public static Polyline user_path = null;
 
     private static LatLng[] route1 = {
             new LatLng(37.450424, 126.951976),

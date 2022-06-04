@@ -2,6 +2,8 @@ package com.team4.walkingfriend.result;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
+import static java.lang.Math.round;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,17 +14,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.team4.walkingfriend.DetectorActivity;
 import com.team4.walkingfriend.MainActivity;
 import com.team4.walkingfriend.R;
-
+import com.team4.walkingfriend.maps.MapsActivity;
 
 
 public class ResultActivity extends AppCompatActivity {
 
     Button endButton;
+    TextView score_text;
 
 
     @Override
@@ -33,6 +37,21 @@ public class ResultActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_result);
 
+        Bundle b = getIntent().getExtras();
+        int coins = b.getInt("coins");
+
+        score_text = findViewById(R.id.result_score_value);
+        score_text.setText(coins + " coins");
+
+        double distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance()/(double) 1000);
+        double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100/(double) 6000);
+
+        score_text = findViewById(R.id.result_speed_value);
+        score_text.setText(distance/(duration/60) + " km/h");
+
+        score_text = findViewById(R.id.result_time_value);
+        score_text.setText(duration+ " min");
+
         endButton = findViewById(R.id.return_button);
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +59,7 @@ public class ResultActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finishAffinity();
+                finish();
             }
         });
 

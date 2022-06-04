@@ -21,6 +21,8 @@ import com.team4.walkingfriend.utils.ImageUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DetectorActivity extends CameraActivity implements OnImageAvailableListener {
@@ -49,6 +51,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private boolean computingDetection = false;
 
     private long timestamp = 0;
+
 
     private Matrix frameToCropTransform;
     private Matrix cropToFrameTransform;
@@ -145,11 +148,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         paint.setStyle(Paint.Style.STROKE);
                         paint.setStrokeWidth(2.0f);
 
+                        Collections.sort(results,
+                                new Comparator<Detector.Recognition>() {
+                                    @Override
+                                    public int compare(Detector.Recognition o1, Detector.Recognition o2) {
+                                        return o2.getConfidence().compareTo(o1.getConfidence());
+                                    }
+                                });
+
                         float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
                         final List<Detector.Recognition> mappedRecognitions =
                                 new ArrayList<Detector.Recognition>();
 
                         for (final Detector.Recognition result : results) {
+
                             final RectF location = result.getLocation();
                             if (location != null && result.getConfidence() >= minimumConfidence) {
                                 canvas.drawRect(location, paint);
@@ -158,15 +170,31 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
+                                coins += 100;
+                                break;
                             }
                         }
+
+
+
+
+                        Log.i(LOGGER_TAG,"#### coins : "+coins);
 
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();
 
-                        computingDetection = false;
-                    }
-                });
+                                    computingDetection = false;
+
+                        if(mappedRecognitions.size() > 0) {
+                                        try {
+                                            Log.i(LOGGER_TAG,"#### detection succeed! sleep....1s");
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                    });
     }
 
     @Override

@@ -54,6 +54,10 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
     private Runnable postInferenceCallback;
     private Runnable imageConverter;
 
+    protected int coins = 0;
+
+
+
     LinearLayout info;
     TextView info_title;
     TextView info_distance;
@@ -93,6 +97,9 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ResultActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("coins", coins);
+                intent.putExtras(b);
                 startActivity(intent);
                 finishAffinity();
             }

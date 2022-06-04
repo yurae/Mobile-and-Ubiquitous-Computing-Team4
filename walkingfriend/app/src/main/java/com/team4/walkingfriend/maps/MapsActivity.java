@@ -80,6 +80,8 @@ public class MapsActivity extends FragmentActivity implements
     TextView info_distance;
     TextView info_level;
 
+    private static Long timestamp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,8 @@ public class MapsActivity extends FragmentActivity implements
                 com.team4.walkingfriend.maps.RouteManager.onRouteSelected(view.getContext());
                 getUpdateLocation();
 
+                timestamp = System.currentTimeMillis()/1000; // walking start time
+
                 Intent intent = new Intent(view.getContext(), DetectorActivity.class);
                 Bundle b = new Bundle();
                 b.putString("title", info_title.getText().toString()); //Your id
@@ -138,6 +142,19 @@ public class MapsActivity extends FragmentActivity implements
         info_level = findViewById(R.id.info_level);
 
         info.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "############# Destroy");
+        finishAffinity();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "############# Stop");
     }
 
 
@@ -287,18 +304,28 @@ public class MapsActivity extends FragmentActivity implements
     public void updateInfoText(Polyline selected_route){
         info.setVisibility(View.VISIBLE);
 
-        String route_title = "경로 : "+ selected_route.getTag();
+        String route_title = ""+selected_route.getTag();
         double route_distance = getDistance(selected_route);
 
         info_title.setText(route_title);
-        info_distance.setText("거리 : "+ String.format("%.2f", route_distance)+"m");
-        info_level.setText("난이도 : ★★★★☆");
+        info_distance.setText("Distance : "+ String.format("%.2f", route_distance)+"m");
+        info_level.setText("Level : ★★★★☆");
     }
     private double getDistance(Polyline route){
         List<LatLng> Points = route.getPoints();
         double distance = SphericalUtil.computeLength(Points);
 
         return distance;
+    }
+    public static double getUserDistance(){
+        List<LatLng>  Points = RouteManager.user_path.getPoints();
+        double distance = SphericalUtil.computeLength(Points);
+
+        return distance;
+    }
+    public static double getUserTimestamp(){
+        long timetamp_now = System.currentTimeMillis()/1000;
+        return timetamp_now-timestamp;
     }
 
 }
