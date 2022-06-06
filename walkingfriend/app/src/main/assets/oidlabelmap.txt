@@ -1,0 +1,5 @@
+Bird
+Car
+Dog
+Flower
+Person
