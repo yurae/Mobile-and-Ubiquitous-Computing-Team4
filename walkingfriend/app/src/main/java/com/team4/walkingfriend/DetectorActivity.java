@@ -51,7 +51,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private Integer sensorOrientation;
 
 
-    private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
+    private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.65f;
     private static final boolean TF_OD_API_IS_QUANTIZED = true;
     private static final String TF_OD_API_MODEL_FILE = "detect.tflite";
     private static final String TF_OD_API_LABELS_FILE = "labelmap.txt";
@@ -205,7 +205,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         for (final Detector.Recognition result : results) {
 
                             final RectF location = result.getLocation();
-                            if(possibleClasses.contains(result.getId())){
+
+                            Log.i(LOGGER_TAG, "class id:" + result.getTitle());
+                            if(possibleClasses.contains(result.getTitle())){
                                 if (location != null && result.getConfidence() >= minimumConfidence) {
                                     canvas.drawRect(location, paint);
 
