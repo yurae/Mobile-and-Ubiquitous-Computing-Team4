@@ -1,6 +1,10 @@
 package com.team4.walkingfriend.tracking;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -8,15 +12,21 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.team4.lib_interpreter.Detector;
+import com.team4.walkingfriend.R;
 import com.team4.walkingfriend.utils.BorderedText;
 import com.team4.walkingfriend.utils.ImageUtils;
 import com.team4.lib_interpreter.Detector.Recognition;
@@ -129,8 +139,6 @@ public class MultiBoxTracker {
 
             float cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f;
             // modify this line with character gif
-//            canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint);
-
 
             //modify this line with coin text
 //            final String labelString =
@@ -147,6 +155,7 @@ public class MultiBoxTracker {
 
         }
     }
+
 
     private void processResults(final List<Recognition> results) {
         final List<Pair<Float, Recognition>> rectsToTrack = new LinkedList<Pair<Float, Recognition>>();

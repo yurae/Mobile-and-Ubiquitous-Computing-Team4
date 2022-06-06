@@ -14,9 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.team4.walkingfriend.DetectorActivity;
 import com.team4.walkingfriend.MainActivity;
 import com.team4.walkingfriend.R;
@@ -27,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
 
     Button endButton;
     TextView score_text;
+    ImageView fairy_view;
 
 
     @Override
@@ -45,12 +48,16 @@ public class ResultActivity extends AppCompatActivity {
 
         double distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance()/(double) 1000);
         double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100/(double) 6000);
+        double speed = duration == 0? 0 : distance/(duration/60);
 
         score_text = findViewById(R.id.result_speed_value);
-        score_text.setText(distance/(duration/60) + " km/h");
+        score_text.setText(speed + " km/h");
 
         score_text = findViewById(R.id.result_time_value);
         score_text.setText(duration+ " min");
+
+        fairy_view = findViewById(R.id.imageView);
+        Glide.with(this).load(R.drawable.fairy_smile).into(fairy_view);
 
         endButton = findViewById(R.id.return_button);
         endButton.setOnClickListener(new View.OnClickListener() {

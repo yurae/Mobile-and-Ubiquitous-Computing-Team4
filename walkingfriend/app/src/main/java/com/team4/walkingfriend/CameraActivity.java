@@ -1,5 +1,7 @@
 package com.team4.walkingfriend;
 
+import static java.lang.Math.round;
+
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
@@ -30,10 +32,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.team4.walkingfriend.maps.MapsActivity;
 import com.team4.walkingfriend.result.ResultActivity;
 import com.team4.walkingfriend.utils.ImageUtils;
 
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public abstract class CameraActivity extends AppCompatActivity implements OnImageAvailableListener {
     private static final String LOGGER_TAG = "CameraActivity";
@@ -73,9 +79,25 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_camera);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TextView speed_view = findViewById(R.id.curr_speed);
+        TextView time_view = findViewById(R.id.curr_time);
+
+        Handler handler =new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 30000);
+                double curr_distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance()/(double) 1000);
+                double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100/(double) 6000);
+                double speed = duration == 0? 0 : curr_distance/(duration/60);
+                speed_view.setText(speed+" km/h");
+
+                String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+                time_view.setText(currentTime);
+            }
+        };
+        handler.postDelayed(r, 0000);
+
 
         Bundle b = getIntent().getExtras();
         String title = b.getString("title");
@@ -144,6 +166,7 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
             final int uvRowStride = planes[1].getRowStride();
             final int uvPixelStride = planes[1].getPixelStride();
 
+
             imageConverter =
                     new Runnable() {
                         @Override
@@ -183,6 +206,7 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
     public synchronized void onStart() {
         Log.d(LOGGER_TAG, "onStart " + this);
         super.onStart();
+
     }
 
     @Override

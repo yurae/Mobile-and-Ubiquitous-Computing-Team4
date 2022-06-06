@@ -1,17 +1,27 @@
 package com.team4.walkingfriend;
 
+import static java.lang.Math.round;
+
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
+import android.view.View;
+import android.view.animation.PathInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.team4.lib_interpreter.Detector;
 import com.team4.lib_interpreter.TFLiteObjectDetectionAPIModel;
 import com.team4.walkingfriend.customview.OverlayView;
@@ -20,10 +30,13 @@ import com.team4.walkingfriend.tracking.MultiBoxTracker;
 import com.team4.walkingfriend.utils.ImageUtils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DetectorActivity extends CameraActivity implements OnImageAvailableListener {
 
@@ -112,6 +125,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     @Override
     protected void processImage() {
+
         ++timestamp;
         final long currTimestamp = timestamp;
         trackingOverlay.postInvalidate();
@@ -177,18 +191,17 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
 
 
-
                         Log.i(LOGGER_TAG,"#### coins : "+coins);
 
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();
 
-                                    computingDetection = false;
+                        computingDetection = false;
 
                         if(mappedRecognitions.size() > 0) {
                                         try {
-                                            Log.i(LOGGER_TAG,"#### detection succeed! sleep....1s");
-                                            Thread.sleep(1000);
+                                            Log.i(LOGGER_TAG,"#### detection succeed! sleep....5s");
+                                            Thread.sleep(5000);
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
@@ -196,6 +209,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 }
                     });
     }
+
 
     @Override
     protected int getLayoutId() {
