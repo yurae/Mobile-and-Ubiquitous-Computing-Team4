@@ -46,6 +46,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
     private static final boolean SAVE_PREVIEW_BITMAP = false;
     OverlayView trackingOverlay;
+    ImageView fairy_idle;
+    ImageView fairy_scored;
     private Integer sensorOrientation;
 
 
@@ -112,11 +114,21 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         frameToCropTransform.invert(cropToFrameTransform);
 
         trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
+
+        fairy_idle = (ImageView) findViewById(R.id.fairy_idle);
+        fairy_scored = (ImageView) findViewById(R.id.fairy_scored);
+        fairy_idle.getLayoutParams().width = 200;
+        fairy_idle.getLayoutParams().height = 200;
+        fairy_scored.getLayoutParams().width = 200;
+        fairy_scored.getLayoutParams().height = 200;
+        Glide.with(this).load(R.drawable.fairy_idle).into(fairy_idle);
+        Glide.with(this).load(R.drawable.fairy_scored).into(fairy_scored);
+
         trackingOverlay.addCallback(
                 new DrawCallback() {
                     @Override
                     public void drawCallback(final Canvas canvas) {
-                        tracker.draw(canvas);
+                        tracker.draw(canvas, fairy_idle, fairy_scored);
                     }
                 });
 
@@ -202,12 +214,17 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         try {
                                             Log.i(LOGGER_TAG,"#### detection succeed! sleep....5s");
                                             Thread.sleep(5000);
+                                            //fairy_idle.setVisibility(View.VISIBLE);
+                                            //fairy_scored.setVisibility(View.INVISIBLE);
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
                                     }
                                 }
                     });
+
+        fairy_idle.setVisibility(View.VISIBLE);
+        fairy_scored.setVisibility(View.INVISIBLE);
     }
 
 

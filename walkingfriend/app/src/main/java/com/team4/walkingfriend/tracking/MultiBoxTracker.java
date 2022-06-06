@@ -117,7 +117,7 @@ public class MultiBoxTracker {
         return frameToCanvasMatrix;
     }
 
-    public synchronized void draw(final Canvas canvas) {
+    public synchronized void draw(final Canvas canvas, ImageView fairy_idle, ImageView fairy_scored) {
         final boolean rotated = sensorOrientation % 180 == 90;
         final float multiplier =
                 Math.min(
@@ -140,11 +140,17 @@ public class MultiBoxTracker {
             float cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f;
             // modify this line with character gif
 
+            fairy_idle.setVisibility(View.INVISIBLE);
+            fairy_scored.setVisibility(View.VISIBLE);
+            fairy_scored.setX(trackedPos.right);
+            fairy_scored.setY(trackedPos.top);
+
+
             //modify this line with coin text
-//            final String labelString =
-//                    !TextUtils.isEmpty(recognition.title)
-//                            ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
-//                            : String.format("%.2f", (100 * recognition.detectionConfidence));
+            //final String labelString =
+            //        !TextUtils.isEmpty(recognition.title)
+            //                ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
+            //                : String.format("%.2f", (100 * recognition.detectionConfidence));
 
             //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
             // labelString);
