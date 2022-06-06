@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,6 +73,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private Matrix cropToFrameTransform;
 
     List<String> possibleClasses = new ArrayList<String>();
+    HashMap<String, Integer> classAppearance = new HashMap<String, Integer>();
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -149,7 +151,18 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         possibleClasses.add("bird");
         possibleClasses.add("cat");
         possibleClasses.add("dog");
-        possibleClasses.add("chair");
+
+
+        classAppearance.put("person", 3);
+        classAppearance.put("bicycle", 5);
+        classAppearance.put("car", 3);
+        classAppearance.put("bench", 10);
+        classAppearance.put("stop sign", 5);
+        classAppearance.put("bird", 10);
+        classAppearance.put("cat", 10);
+        classAppearance.put("dog", 10);
+
+
 
 
         ++timestamp;
@@ -207,7 +220,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                             final RectF location = result.getLocation();
 
                             Log.i(LOGGER_TAG, "class id:" + result.getTitle());
-                            if(possibleClasses.contains(result.getTitle())){
+                            if(possibleClasses.contains(result.getTitle()) && (classAppearance.get(result.getTitle()) > 0)){
                                 if (location != null && result.getConfidence() >= minimumConfidence) {
                                     canvas.drawRect(location, paint);
 
