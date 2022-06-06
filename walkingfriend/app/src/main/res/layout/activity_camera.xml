@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
             android:textColor="#ffffff"
             android:textSize="15dp" />
 
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/info_title"
             android:textColor="#ffffff"
+            android:paddingLeft="10dp"
 
             />
 
@@ -33,7 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/info_distance"
                 android:textColor="#ffffff"
-                android:layout_marginBottom="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+
                 />
 
 
@@ -42,6 +46,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/info_level"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/button_yellow"
             android:text="FINISH"
@@ -54,7 +59,7 @@
             android:id="@+id/container"
             android:layout_width="640dp"
             android:layout_height="480dp"
-            android:layout_below="@+id/result_button"
+            android:layout_below="@+id/info_level"
             android:background="@color/black"
             tools:context="com.team4.walkingfriend.CameraActivity"
             tools:ignore="NewApi,NotSibling">
@@ -83,10 +88,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/container"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="0.0 km/h"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textColor="#ffffff"
             />
         <TextView
@@ -97,7 +102,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="00 : 00"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textColor="#ffffff"
             />
 
