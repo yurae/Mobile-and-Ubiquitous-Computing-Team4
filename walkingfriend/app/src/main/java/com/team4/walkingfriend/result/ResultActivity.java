@@ -46,8 +46,8 @@ public class ResultActivity extends AppCompatActivity {
         score_text = findViewById(R.id.result_score_value);
         score_text.setText(coins + " coins");
 
-        double distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance()/(double) 1000);
-        double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100/(double) 6000);
+        double distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance())/(double) 1000;
+        double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100)/(double) 6000;
         double speed = duration == 0? 0 : distance/(duration/60);
 
         score_text = findViewById(R.id.result_speed_value);

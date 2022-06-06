@@ -81,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements
     TextView info_level;
 
     private static Long timestamp;
+    private static float LastUserSpeed;
 
 
     @Override
@@ -281,6 +282,7 @@ public class MapsActivity extends FragmentActivity implements
 
                 mLastLocation = locationResult.getLastLocation();
                 //  mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+                LastUserSpeed = mLastLocation.getSpeed();
                 updateLocationUI();
             }
         };
@@ -326,6 +328,9 @@ public class MapsActivity extends FragmentActivity implements
     public static double getUserTimestamp(){
         long timetamp_now = System.currentTimeMillis()/1000;
         return timetamp_now-timestamp;
+    }
+    public static float getUserSpeed(){
+        return LastUserSpeed;
     }
 
 }

@@ -86,17 +86,15 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
         Handler handler =new Handler();
         final Runnable r = new Runnable() {
             public void run() {
-                handler.postDelayed(this, 30000);
-                double curr_distance = round(com.team4.walkingfriend.maps.MapsActivity.getUserDistance()/(double) 1000);
-                double duration = round(com.team4.walkingfriend.maps.MapsActivity.getUserTimestamp()*100/(double) 6000);
-                double speed = duration == 0? 0 : curr_distance/(duration/60);
+                handler.postDelayed(this, 0000);
+                double speed = round(com.team4.walkingfriend.maps.MapsActivity.getUserSpeed()*100)/(double) 100;
                 speed_view.setText(speed+" km/h");
 
                 String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
                 time_view.setText(currentTime);
             }
         };
-        handler.postDelayed(r, 0000);
+        handler.postDelayed(r, 1000);
 
 
         Bundle b = getIntent().getExtras();
