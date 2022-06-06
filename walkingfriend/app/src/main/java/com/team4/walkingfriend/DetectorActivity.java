@@ -71,6 +71,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private Matrix frameToCropTransform;
     private Matrix cropToFrameTransform;
 
+    List<String> possibleClasses = new ArrayList<String>();
+
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         tracker = new MultiBoxTracker(this);
@@ -117,12 +119,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         fairy_idle = (ImageView) findViewById(R.id.fairy_idle);
         fairy_scored = (ImageView) findViewById(R.id.fairy_scored);
-        fairy_idle.getLayoutParams().width = 200;
-        fairy_idle.getLayoutParams().height = 200;
-        fairy_scored.getLayoutParams().width = 200;
-        fairy_scored.getLayoutParams().height = 200;
+        fairy_idle.getLayoutParams().width = 300;
+        fairy_idle.getLayoutParams().height = 300;
+        fairy_scored.getLayoutParams().width = 300;
+        fairy_scored.getLayoutParams().height = 300;
         Glide.with(this).load(R.drawable.fairy_idle).into(fairy_idle);
         Glide.with(this).load(R.drawable.fairy_scored).into(fairy_scored);
+        fairy_idle.bringToFront();
 
         trackingOverlay.addCallback(
                 new DrawCallback() {
@@ -137,6 +140,17 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     @Override
     protected void processImage() {
+
+        possibleClasses.add("person");
+        possibleClasses.add("bicycle");
+        possibleClasses.add("car");
+        possibleClasses.add("bench");
+        possibleClasses.add("stop sign");
+        possibleClasses.add("bird");
+        possibleClasses.add("cat");
+        possibleClasses.add("dog");
+        possibleClasses.add("chair");
+
 
         ++timestamp;
         final long currTimestamp = timestamp;
@@ -186,18 +200,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         final List<Detector.Recognition> mappedRecognitions =
                                 new ArrayList<Detector.Recognition>();
 
+
+
                         for (final Detector.Recognition result : results) {
 
                             final RectF location = result.getLocation();
-                            if (location != null && result.getConfidence() >= minimumConfidence) {
-                                canvas.drawRect(location, paint);
+                            if(possibleClasses.contains(result.getId())){
+                                if (location != null && result.getConfidence() >= minimumConfidence) {
+                                    canvas.drawRect(location, paint);
 
-                                cropToFrameTransform.mapRect(location);
+                                    cropToFrameTransform.mapRect(location);
 
-                                result.setLocation(location);
-                                mappedRecognitions.add(result);
-                                coins += 100;
-                                break;
+                                    result.setLocation(location);
+                                    mappedRecognitions.add(result);
+                                    coins += 100;
+                                    break;
+                                }
                             }
                         }
 
@@ -225,6 +243,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         fairy_idle.setVisibility(View.VISIBLE);
         fairy_scored.setVisibility(View.INVISIBLE);
+        fairy_idle.bringToFront();
     }
 
 

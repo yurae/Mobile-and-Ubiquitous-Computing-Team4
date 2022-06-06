@@ -142,22 +142,23 @@ public class MultiBoxTracker {
 
             fairy_idle.setVisibility(View.INVISIBLE);
             fairy_scored.setVisibility(View.VISIBLE);
-            fairy_scored.setX(trackedPos.right);
+            fairy_scored.setX(trackedPos.left - cornerSize);
             fairy_scored.setY(trackedPos.top);
+            fairy_scored.bringToFront();
 
 
             //modify this line with coin text
-            //final String labelString =
-            //        !TextUtils.isEmpty(recognition.title)
-            //                ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
-            //                : String.format("%.2f", (100 * recognition.detectionConfidence));
+            final String labelString =
+                    !TextUtils.isEmpty(recognition.title)
+                            ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
+                            : String.format("%.2f", (100 * recognition.detectionConfidence));
 
-            //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
-            // labelString);
+                        borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
+             labelString);
 
-            final String labelString = "100 Coins!";
-            borderedText.drawText(
-                    canvas, trackedPos.left + cornerSize, trackedPos.top, labelString, boxPaint);
+            //final String labelString = "100 Coins!";
+            //borderedText.drawText(
+            //        canvas, trackedPos.left + cornerSize, trackedPos.top, labelString, boxPaint);
 
         }
     }
