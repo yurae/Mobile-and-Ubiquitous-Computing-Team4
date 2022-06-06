@@ -4,53 +4,38 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/topbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:background="@color/main_background"
-        android:orientation="horizontal"
-        tools:ignore="NewApi"
-        >
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/info"
+
+
+        <TextView
+            android:id="@+id/info_title"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical"
-            android:padding="10sp"
-            tools:ignore="UnknownId">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/info_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/info_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_title"
+            android:textColor="#ffffff"
 
-                android:textColor="#ffffff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/info_distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:textColor="#ffffff"
-
-                />
+            />
 
             <TextView
                 android:id="@+id/info_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_below="@+id/info_distance"
                 android:textColor="#ffffff"
-
+                android:layout_marginBottom="20dp"
                 />
 
-        </LinearLayout>
 
         <Button
             android:id="@+id/result_button"
@@ -67,9 +52,9 @@
 
         <FrameLayout
             android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:layout_below="@+id/info"
+            android:layout_width="640dp"
+            android:layout_height="480dp"
+            android:layout_below="@+id/result_button"
             android:background="@color/black"
             tools:context="com.team4.walkingfriend.CameraActivity"
             tools:ignore="NewApi,NotSibling">
@@ -78,18 +63,20 @@
                 android:id="@+id/fairy_scored"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:translationX="300dp"
+                android:translationX="250dp"
                 app:srcCompat="@drawable/fairy_scored" />
 
             <ImageView
                 android:id="@+id/fairy_idle"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:translationX="300dp"
+                android:translationX="250dp"
                 android:visibility="visible"
                 app:srcCompat="@drawable/fairy_idle" />
 
         </FrameLayout>
+
+
 
         <TextView
             android:id="@+id/curr_speed"
@@ -122,6 +109,3 @@
 
 
 
-
-
-    </RelativeLayout>

@@ -245,8 +245,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                         if(mappedRecognitions.size() > 0) {
                                         try {
-                                            Log.i(LOGGER_TAG,"#### detection succeed! sleep....5s");
-                                            Thread.sleep(5000);
+                                            Log.i(LOGGER_TAG,"#### detection succeed! sleep....3s");
+                                            Thread.sleep(3000);
                                             //fairy_idle.setVisibility(View.VISIBLE);
                                             //fairy_scored.setVisibility(View.INVISIBLE);
                                         } catch (InterruptedException e) {
